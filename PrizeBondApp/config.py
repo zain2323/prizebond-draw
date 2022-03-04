@@ -1,7 +1,7 @@
 from urllib.parse import quote
 import json
 
-with open("secrets.json", "r") as secrets_file:
+with open("/etc/secrets.json", "r") as secrets_file:
     config = json.load(secrets_file)
 class Config:
     SECRET_KEY = config.get("SECRET_KEY")
