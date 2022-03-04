@@ -29,4 +29,10 @@ jobs:
           username: ${{ secrets.AZURE_VM_USERNAME }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           port: 22
-          script: whoami
+          script: |
+            cd prizebond-draw
+            git pull
+            sudo supervisorctl stop prizebond_draw
+            sudo supervisorctl start prizebond_draw
+            echo "Deployed successfully"
+
