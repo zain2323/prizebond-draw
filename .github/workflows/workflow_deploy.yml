@@ -25,8 +25,8 @@ jobs:
       - name: SSH into the server
         uses: appleboy/ssh-action@master
         with:
-          host: pop-os
-          username: zainsiddiqui
+          host: ${{ secrets.AZURE_VM_HOST }}
+          username: ${{ secrets.AZURE_VM_USERNAME }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           port: 22
           script: whoami
