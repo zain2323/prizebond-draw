@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    {% if title %}
+      <title>PrizeBond- {{ title }}</title>
+    {% else %}
+      <title>PrizeBond</title>
+    {% endif %}
+
+</head>
+<body>
+  <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a style="margin-left: 20px;" class="navbar-brand" href="{{url_for('main.home')}}">
+        Prize Bond
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+          {% if current_user.is_authenticated%}
+            {% if current_user.role.role == "user" %}
+              <!-- Bonds menu  -->
+            <div class="mx-auto">
+                <a href="{{url_for('main.home')}}" class="btn btn-outline-secondary bt" data-toggle="tooltip" data-placement="top" title="Home">
+                  <i class="bi bi-house-fill"></i>
+                </a>
+    
+                <a class="btn dropdown btn btn-outline-secondary bt" href="#" role="button" data-bs-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Bonds">
+                  <i class="bi bi-grid-fill"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu bg-light" style="right: auto; left: auto;">
+                  <li><a class="dropdown-item dropdown-item-lg bt" href="{{ url_for('users.add_bond') }}">Add Bonds</a></li>
+                  <li><a class="dropdown-item bt" href="{{ url_for('users.add_bond_range') }}">Add Series</a></li>
+                  <li><a class="dropdown-item bt" href="{{ url_for('users.remove_bond') }}">Remove Bonds</a></li>
+                  <li><a class="dropdown-item bt" href="{{ url_for('users.check_results') }}">Check Results</a></li>
+                </ul>
+            </div> 
+              <!-- Notifications -->
+              <div id="not-icon" class="position-relative me-4">
+                <a class="btn dropdown btn btn-outline-secondary bt" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Notifications">
+                  <i class="bi bi-bell"></i>
+                <span style="display: none;" id="notification_count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  0
+                  <span class="visually-hidden">unread notifications</span>
+                </span>
+                </a>
+                
+                <ul id="notification" class="dropdown-menu dropdown-menu-end bg-light dropdown-menu-width" ></ul>
+              </div>
+              <!-- Account info -->
+              <div class="dropdown me-3">
+                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown">
+                  {{ current_user.name }}
+                </a>
+              
+                <ul class="dropdown-menu dropdown-menu-end bg-light" aria-labelledby="dropdownMenuLink">
+                  <li><a class="dropdown-item bt" href="{{ url_for('users.account_info', user_id=current_user.id) }}">Account info</a></li>
+                  <li><a class="dropdown-item bt" href="{{ url_for('auth.sign_out') }}">Log out</a></li>
+                </ul>
+              </div>
+     
+            {% endif%}
+          {% endif %}
+      </nav>
+
+      <!-- Flash Messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show text-center" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+       {% endif %}
+    {% endwith %}
+
+      {% block content %} {% endblock %}
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+    {% block scripts %}{% endblock scripts%}
+  <script>
+    var notifications;
+    function get_notifications()
+          {
+            fetch('/get_notifications')
+            .then(function(response)
+            {
+              return response.json()
+            })
+            .then(function(response)
+            {
+              let notification_count = document.querySelector("#notification_count")
+              let notification = document.querySelector("#notification")
+              let counter = 0
+
+              notification.innerHTML = ""
+              notifications = response
+              
+              if (response.length === 0)
+              {
+                notification.innerHTML += `<span class="d-flex justify-content-center fw-bold">Stay tuned!</span><span>No new notifications</span>`
+              }
+              for(let i=0; i < response.length; i++)
+              {
+                let name = response[i]["name"]
+                let body = response[i]["body"]
+                let read = response[i]["read"]
+                if (i === response.length - 1)
+                {
+                  notification.innerHTML += `<li><a class="dropdown-item bt" href="#"</a><span class="d-flex justify-content-center fw-bold">${name}</span><span>${body}</span></li>`
+                }
+                else
+                {
+                  notification.innerHTML += `<li><a class="dropdown-item bt" href="#"</a><span class="d-flex justify-content-center fw-bold">${name}</span><span>${body}</span></li><hr>`
+                }
+                
+                if (read === false) {
+                  counter += 1
+                  notification_count.style.display = ""
+                }
+              }
+              notification_count.innerHTML = counter
+              
+            })
+            .catch(function(error)
+            {
+              //  console.log(error)
+            })
+          }
+          
+          let notification_count = document.querySelector("#notification_count")
+          document.querySelector("#not-icon").onclick = function()
+          {
+            notification_count.style.display = "none"
+            if (notifications !== undefined)
+            {
+              fetch("/read_notifications", {
+                method: "POST",
+                body: JSON.stringify(notifications)
+              })
+              .then(function(response)
+              {
+                return response
+              })
+              .then(function(error)
+              {
+                // console.log(error)
+              })
+            }
+          }
+
+          get_notifications()
+          setInterval(get_notifications, 10000)
+  </script>
+  </body>
+</html>

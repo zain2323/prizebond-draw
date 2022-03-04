@@ -1,0 +1,7 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+    <div class="mt-5">
+        <a href="{{ url_for('winningbond.upload_from_file') }}" class="btn btn-outline-dark mr-5">Add from file</a>
+    <a href="{{ url_for('winningbond.upload_manually') }}" class="btn btn-outline-dark ms-5">Add manually</a>
+    </div>
+{% endblock body%}

@@ -1,0 +1,92 @@
+{% extends "admin/master.html" %}
+{% block body%}
+    <div class="content-section">
+        <form class="form-group" method="POST" action="">
+            {{ form.hidden_tag() }}
+            <legend class="text-center mt-5">Add Winning Record</legend>
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{form.denomination.label(class="form-control-label mb-2")}}
+                    {% if form.denomination.errors %}
+                        {{form.denomination(class="form-control mb-2 is-invalid")}} 
+                        <div class="invalid-feedback">
+                            {% for error in form.denomination.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{form.denomination(class="form-control mb-2")}}       
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{form.prize.label(class="form-control-label mb-2")}}
+                    {% if form.prize.errors %}
+                        {{form.prize(class="form-control mb-2 is-invalid")}} 
+                        <div class="invalid-feedback">
+                            {% for error in form.prize.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{form.prize(class="form-control mb-2")}}       
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{form.serial.label(class="form-control-label mb-2")}}
+                    {% if form.serial.errors %}
+                        {{form.serial(class="form-control mb-2 is-invalid")}} 
+                        <div class="invalid-feedback">
+                            {% for error in form.serial.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{form.serial(class="form-control mb-2", placeholder="Enter single serial or multiple serials separated by comma.")}}       
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.date.label(class="form-control-label mb-2") }}
+                    {% if form.date.errors %}
+                    {{ form.date(class="form-control is-invalid mb-2") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.date.errors%}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.date(class="form-control mb-2")}}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.location.label(class="form-control-label mb-2") }}
+                    {% if form.location.errors %}
+                    {{ form.location(class="form-control is-invalid mb-2") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.location.errors%}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.location(class="form-control mb-2")}}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.number.label(class="form-control-label mb-2") }}
+                    {% if form.number.errors %}
+                    {{ form.number(class="form-control is-invalid mb-2") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.number.errors%}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.number(class="form-control mb-2")}}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group mb-0 text-center">
+                {{ form.submit(class="btn btn-outline-dark mt-4") }}
+            </div>
+        </form>
+    </div>
+{% endblock body %}

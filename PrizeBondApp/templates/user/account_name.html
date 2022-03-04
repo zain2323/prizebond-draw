@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="content-section">
+    <form class="form-group" method="POST" action="">
+        {{ form.hidden_tag() }}
+        <legend class="text-center mt-5">Update Name</legend>
+        <fieldset class="form-group">
+            <div class="form-group">
+                {{form.old_name.label(class="form-control-label mb-2")}}
+                {% if form.old_name.errors %}
+                    {{form.old_name(class="form-control mb-2 is-invalid")}} 
+                    <div class="invalid-feedback">
+                        {% for error in form.old_name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{form.old_name(class="form-control mb-2")}}       
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{form.new_name.label(class="form-control-label mb-2")}}
+                {% if form.new_name.errors %}
+                    {{form.new_name(class="form-control mb-2 is-invalid")}} 
+                    <div class="invalid-feedback">
+                        {% for error in form.new_name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{form.new_name(class="form-control mb-2", placeholder="New name")}}       
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group mb-0 text-center">
+            {{ form.submit(class="btn btn-outline-dark mt-4") }}
+        </div>
+        
+    </form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function()
+    {
+        old_name = document.getElementById("old_name");
+        old_name.value = '{{ old_name }}';
+        old_name.disabled = true;   
+    });
+</script>
+{% endblock content %}

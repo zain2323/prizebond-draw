@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content%}
+    <div class="content-section">
+        <form class="form-group" method="POST" action="">
+            {{ form.hidden_tag() }}
+            <legend class="text-center mt-5">Add Bond</legend>
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{form.denomination.label(class="form-control-label mb-2")}}
+                    {% if form.denomination.errors %}
+                        {{form.denomination(class="form-control mb-2 is-invalid")}} 
+                        <div class="invalid-feedback">
+                            {% for error in form.denomination.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{form.denomination(class="form-control mb-2")}}       
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{form.serial.label(class="form-control-label mb-2")}}
+                    {% if form.serial.errors %}
+                        {{form.serial(class="form-control mb-2 is-invalid")}} 
+                        <div class="invalid-feedback">
+                            {% for error in form.serial.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{form.serial(class="form-control mb-2", placeholder="Enter serial")}}       
+                    {% endif %}
+                </div>
+                <div class="form-group badge bg-light text-wrap ms-4">
+                    <p class="fw-light text-dark">Enter single serial or multiple serials separated by comma.</p>
+                    <p class="fw-light text-dark">Example: 123456,123457...</p>
+                </div>
+            </fieldset>
+            <div class="form-group mb-0 text-center">
+                {{ form.submit(class="btn btn-outline-dark mt-4") }}
+            </div>
+            <div class="text-center">
+                <small class="ml-1 mt-0 text-muted">Want to remove bonds?
+                    <a href="{{url_for('users.remove_bond')}}" class="link-secondary">Remove Bonds</a>
+                </small>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

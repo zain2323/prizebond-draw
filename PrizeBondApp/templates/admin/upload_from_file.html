@@ -1,0 +1,90 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+<form class="form-group variant-section" method="POST" action="" enctype=multipart/form-data>
+    {{ form.hidden_tag() }}
+    {{ form.file }}
+    <legend class="text-center mt-2">Update Winning Records</legend>
+    <div class="form-group">
+        {{ form.price.label(class="form-control-label mb-2") }}
+        {% if form.price.errors %}
+        {{ form.price(class="form-control is-invalid mb-2") }}
+            <div class="invalid-feedback">
+                {% for error in form.price.errors%}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+            </div>
+        {% else %}
+            {{ form.price(class="form-control mb-2")}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.prize.label(class="form-control-label mb-2") }}
+        {% if form.prize.errors %}
+        {{ form.prize(class="form-control is-invalid mb-2") }}
+            <div class="invalid-feedback">
+                {% for error in form.prize.errors%}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+            </div>
+        {% else %}
+            {{ form.prize(class="form-control mb-2")}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.date.label(class="form-control-label mb-2") }}
+        {% if form.date.errors %}
+        {{ form.date(class="form-control is-invalid mb-2") }}
+            <div class="invalid-feedback">
+                {% for error in form.date.errors%}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+            </div>
+        {% else %}
+            {{ form.date(class="form-control mb-2")}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.location.label(class="form-control-label mb-2") }}
+        {% if form.location.errors %}
+        {{ form.location(class="form-control is-invalid mb-2") }}
+            <div class="invalid-feedback">
+                {% for error in form.location.errors%}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+            </div>
+        {% else %}
+            {{ form.location(class="form-control mb-2")}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.number.label(class="form-control-label mb-2") }}
+        {% if form.number.errors %}
+        {{ form.number(class="form-control is-invalid mb-2") }}
+            <div class="invalid-feedback">
+                {% for error in form.danumbere.errors%}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+            </div>
+        {% else %}
+            {{ form.number(class="form-control mb-2")}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.name.label(class="form-control-label mb-2") }}
+        {% if form.name.errors %}
+        {{ form.name(class="form-control is-invalid mb-2") }}
+            <div class="invalid-feedback">
+                {% for error in form.name.errors%}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+            </div>
+        {% else %}
+            {{ form.name(class="form-control mb-2")}}
+        {% endif %}
+    </div>
+    <div class="form-group mb-0 text-center">
+        {{ form.submit(class="btn btn-outline-dark mt-4") }}
+    </div>
+</form>
+
+{% endblock %}

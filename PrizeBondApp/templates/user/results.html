@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% if current_user.role.role == 'user' %}
+            <h2 class="lead d-flex justify-content-center fs-1 mt-5 mb-3" >Results</h2>
+            <div class="container d-flex justify-content-center">
+                <table class="table table-responsive table-bordered table-striped mx-auto">
+                    <thead>
+                    <tr>
+                        <th scope="col">Serial No</th>
+                        <th scope="col">Denomination</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Draw Number</th>
+                        <th scope="col">Prize</th>
+                        <th scope="col">Draw date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for bond in bonds %}
+                            <tr>
+                                <th scope="row">{{ bond.bonds }}</th>
+                                <td>Rs {{ bond.bonds.price }}</td>
+                                <td>{{ str(bond.location).capitalize() }}</td>
+                                <td>{{ bond.number }}th</td>
+                                <td>Rs {{ bond.prize }}</td>
+                                <td>{{ bond.date }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+{% endblock content %}

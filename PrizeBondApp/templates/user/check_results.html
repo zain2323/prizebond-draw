@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block content%}
+    <div class="content-section">
+        <form class="form-group" method="POST" action="">
+            {{ form.hidden_tag() }}
+            <legend class="text-center mt-5">Check Results</legend>
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{form.denomination.label(class="form-control-label mb-2")}}
+                    {% if form.denomination.errors %}
+                        {{form.denomination(class="form-control mb-2 is-invalid")}} 
+                        <div class="invalid-feedback">
+                            {% for error in form.denomination.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{form.denomination(class="form-control mb-2")}}       
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{form.serial.label(class="form-control-label mb-2")}}
+                    {% if form.serial.errors %}
+                        {{form.serial(class="form-control mb-2 is-invalid")}} 
+                        <div class="invalid-feedback">
+                            {% for error in form.serial.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{form.serial(class="form-control mb-2", list="serials_datalist")}}
+                        <datalist id="serials_datalist">
+                            <option value="Check all"></option>
+                            {% for entry in entries %}
+                                <option value={{ entry }}>
+                            {% endfor %}
+                        </datalist>       
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{form.date.label(class="form-control-label mb-2")}}
+                    {% if form.date.errors %}
+                        {{form.date(class="form-control mb-2 is-invalid")}} 
+                        <div class="invalid-feedback">
+                            {% for error in form.date.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{form.date(class="form-control mb-2")}}       
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group mb-0 text-center">
+                {{ form.submit(class="btn btn-outline-dark mt-4") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+{% block scripts%}
+    <script>
+
+        function get_denomination_date()
+        {
+            let data = {denomination: document.querySelector("#denomination").value}
+            fetch(`/get_date`, {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify(data),
+                cache: "no-cache",
+                headers: new Headers({
+                    "content-type": "application/json"
+                })
+            })
+            .then(function(response)
+            {
+                return response.json()
+            })  
+            .then(function(response)
+            {
+                date_selector = $("#date").html("")
+                dates = response["denomination"]
+                let str = ""
+                for (let date of dates)
+                {
+                    str += `<option value=${date}>`+ date + "</option>"
+                }
+                date_selector.html(str)
+            })
+            .catch(function(error)
+            {
+                console.log(error)
+            })
+        }
+        
+        denomination = document.querySelector("#denomination")
+        denomination.onchange = get_denomination_date
+        document.addEventListener("DOMContentLoaded", function()
+        {
+            denomination.selectedIndex = 0
+        })
+
+    </script>
+    {% endblock scripts%}

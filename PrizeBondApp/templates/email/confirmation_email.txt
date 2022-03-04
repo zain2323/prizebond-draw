@@ -1,0 +1,11 @@
+Dear {{ user.username }},
+
+To reset your password click on the following link:
+
+{{ url_for('email.confirm_email', _external=True, token=token) }}
+
+If you have not sign up for an account then simply ignore this message.
+
+Sincerely,
+
+The PrizeBond Team

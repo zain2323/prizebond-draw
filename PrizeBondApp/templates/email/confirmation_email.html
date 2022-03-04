@@ -1,0 +1,12 @@
+<p>Dear {{ user.name }},</p>
+<p>
+    To confirm your email
+    <a href="{{ url_for('email.confirm_email', token=token, _external=True) }}">
+        click here
+    </a>.
+</p>
+<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<p>{{ url_for('email.confirm_email', token=token, _external=True) }}</p>
+<p>If you have not sign up for an account then simply ignore this message.</p>
+<p>Sincerely,</p>
+<p>The PrizeBond Team</p>

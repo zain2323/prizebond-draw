@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% if current_user.role.role == 'user' %}
+        {% if len(bonds) > 0 %}
+            <h2 class="lead d-flex justify-content-center fs-1 mt-5 mb-3" >Your Bonds</h2>
+            <div class="container">
+                <table id="data" class="table table-responsive table-bordered table-striped mx-auto">
+                    <thead>
+                    <tr>
+                        <th scope="col">Bond Serial No</th>
+                        <th scope="col">Denomination</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for bond in bonds %}
+                            <tr>
+                                <th scope="row">{{ bond.serial }}</th>
+                                <td>Rs {{ bond.price.price }}</td>
+                                <td>
+                                    <a class="ms-2 li" href="{{ url_for('users.remove_bond', denomination=bond.price.price, serial=bond.serial) }}" ><i class="bi bi-trash-fill"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <h2 class="lead d-flex justify-content-center fs-1 mt-5 mb-3" >You have not added any bonds.</h2>
+        {% endif %}
+        {% endif %}
+{% endblock content %}
+{% block scripts %}
+  <script>
+    $(document).ready(function () {
+      $('#data').DataTable();
+    });
+  </script>
+{% endblock %}

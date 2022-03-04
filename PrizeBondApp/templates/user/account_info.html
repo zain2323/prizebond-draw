@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2 class="lead d-flex justify-content-center fs-1 mt-5 mb-5" >General Account Settings</h2>
+    <div class="container bg-light" style="padding: 0 10px;">
+        <div class="row">
+            <div class="col-md-4 col-sm-3 fw-bold">
+                Name:
+            </div>
+            <div class="col-md-6 col-sm-5">
+                {{user.name|title}}
+            </div>
+            <div class="col-md-2 col-sm-3 icon-parent">
+                <i class="bi bi-pencil-fill mt-2"></i>
+                <a href="{{ url_for('users.account_name', user_id=current_user.id) }}">Edit</a>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-4 col-sm-3 fw-bold">
+                Email:
+            </div>
+            <div class="col-md-6 col-sm-5">
+                {{user.email}}
+            </div>
+            <div class="col-md-2 col-sm-3 icon-parent">
+                <i class="bi bi-pencil-fill mt-2"></i>
+                <a href="{{ url_for('users.account_email', user_id=current_user.id) }}">Edit</a>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4 col-sm-3 fw-bold">
+                Password:
+            </div>
+            <div class="col-md-6 col-sm-5">
+                **********
+            </div>
+            <div class="col-md-2 col-sm-3 icon-parent">
+                <i class="bi bi-pencil-fill mt-2"></i>
+                <a href="{{ url_for('users.account_password', user_id=current_user.id) }}">Edit</a>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4 col-sm-3 fw-bold">
+                Confirmation Status:
+            </div>
+            <div class="col-md-6 col-sm-5">
+                {% if user.confirmed == true %}
+                    Identity confirmed
+                {% else %}
+                    Not confirmed
+                {% endif %}
+            </div>
+            <div class="col-md-2 col-sm-3 icon-parent">
+                {% if user.confirmed == true %}
+                    <i class="bi bi-check-circle-fill"></i>      
+                {% else %}
+                    <i class="bi bi-x-circle-fill"></i>
+                    <a href="{{ url_for('users.account_confirmation_email', user_id=user.id) }}">Send</a>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+        
+    </div>
+
+    <!-- Bond Info -->
+    <h2 class="lead d-flex justify-content-center fs-1 mt-5 mb-5" >Bond Info</h2>
+    <div class="container">
+        <div class="container d-flex justify-content-center">
+            <table class="table table-responsive table-bordered table-striped mx-auto">
+                <thead>
+                <tr>
+                    <th scope="col">Denomination</th>
+                    <th scope="col">Total Bonds</th>
+                    <th scope="col">Investment</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for denomination, total_bonds in bond_data.items() %}
+                    <tr>
+                        <td scope="row">Rs {{ denomination }}</td>
+                        <td>{{ total_bonds }}</td>
+                        <td>Rs {{ denomination|int * total_bonds }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}
