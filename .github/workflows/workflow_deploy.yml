@@ -32,6 +32,8 @@ jobs:
           script: |
             cd prizebond-draw
             git pull
+            source venv/bin/activate
+            pip3 install -r requirements.txt
             sudo supervisorctl stop prizebond_draw
             sudo supervisorctl start prizebond_draw
             echo "Deployed successfully"

@@ -12,6 +12,8 @@ class Config:
     MAIL_USERNAME = config.get("MAIL_USERNAME")
     MAIL_PASSWORD = config.get("MAIL_PASSWORD")
     ADMINS = [config.get("EMAIL")]
+    SUBSCRIPTION_KEY = config.get("SUBSCRIPTION_KEY")
+    ENDPOINT = config.get("ENDPOINT")
     REDIS_URL = 'redis://'
 
 class ProductionConfig(Config):

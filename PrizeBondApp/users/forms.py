@@ -48,6 +48,9 @@ class FileForm(FlaskForm):
             raise ValidationError("Please select the valid prize.")
     
 
+class ReadSerialFromImgForm(FlaskForm):
+    img = FileField("Upload Image", validators=[DataRequired(), FileAllowed(["png", "jpg", "jpeg"])])
+    submit = SubmitField("See Magic :)")
 class AddBond(FlaskForm):
     denomination = SelectField("Select Denomination")
     serial = TextAreaField("Serial No", validators=[DataRequired(), check_slash])

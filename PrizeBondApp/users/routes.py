@@ -4,11 +4,12 @@ from PrizeBondApp.utils import UtilityFunctions
 from flask_login.utils import login_required, current_user
 from PrizeBondApp import db, bcrypt
 from flask import json, render_template, url_for, redirect, flash, request, Blueprint, abort, jsonify
-from PrizeBondApp.users.forms import AddBond, AddBondSeries, EmailForm, NameForm, PasswordForm, ResultsForm
+from PrizeBondApp.users.forms import AddBond, AddBondSeries, EmailForm, NameForm, PasswordForm, ResultsForm, ReadSerialFromImgForm
 from PrizeBondApp.models import Bond, BondPrice, DrawDate, Notifications, User, WinningBond
 from functools import wraps
 from PrizeBondApp.users import admin
 from sqlalchemy import func
+from werkzeug.utils import secure_filename
 
 
 users = Blueprint("users", __name__)
@@ -24,12 +25,31 @@ def confirm_user_required(func):
     return wrappper
 
 
+@users.route("/get_serial_from_file", methods=["GET", "POST"])
+@login_required
+@confirm_user_required
+def get_serial_from_file():
+    form = ReadSerialFromImgForm() 
+    if form.validate_on_submit():
+        img_file = form.img.data
+        filename = secure_filename(img_file.filename)
+        serial, denomination = UtilityFunctions.extract_serial_from_img(img_file)
+        if serial and denomination:
+            return redirect(url_for("users.add_bond", denomination=denomination, serial=serial))
+        else:
+            flash("Could not process the image.", "warning")
+            return redirect(url_for("users.add_bond"))
+    return render_template("user/serial_file.html", form=form)
+
 @users.route("/add_bond", methods=["GET", "POST"])
 @login_required
 @confirm_user_required
 def add_bond(denomination=None, serial=None):
     form = AddBond()
     form.denomination.choices = UtilityFunctions.load_denominations()
+    if request.method == 'GET':
+        form.denomination.data = request.args.get("denomination")
+        form.serial.data = request.args.get("serial")
     if form.validate_on_submit():
         denomination = int(form.denomination.data)
         serials = form.serial.data
@@ -187,7 +207,6 @@ def check_results():
 
 @users.route("/account_info/<int:user_id>", methods=["GET", "POST"])
 @login_required
-# @confirm_user_required
 def account_info(user_id):
     user = User.query.get(user_id)
     if not user:

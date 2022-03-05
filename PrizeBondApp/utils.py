@@ -2,6 +2,18 @@ from PrizeBondApp.models import BondPrice, BondPrize, DrawDate
 from pathlib import Path
 import secrets
 
+from azure.cognitiveservices.vision.computervision import ComputerVisionClient
+from azure.cognitiveservices.vision.computervision.models import OperationStatusCodes
+from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
+from msrest.authentication import CognitiveServicesCredentials
+
+from array import array
+import os
+from PIL import Image
+import sys
+import time
+from flask import render_template, current_app as app
+
 class UtilityFunctions:
 
     @staticmethod
@@ -97,3 +109,36 @@ class UtilityFunctions:
         for i in range(diff):
             zeroes += '0'
         return zeroes + serial_end
+    
+    @staticmethod
+    def extract_continuous_characters(text):
+        for i in range(len(text)):
+            if text[i:].isnumeric() and len(text[i:]) == 6:
+                return text[i:]
+        return None
+    
+    @staticmethod
+    def extract_serial_from_img(filename):
+        serial = None
+        denomination = None
+        subscription_key = app.config["SUBSCRIPTION_KEY"]
+        endpoint = app.config["ENDPOINT"]
+        computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
+        read_response = computervision_client.read_in_stream(filename, raw=True)
+        read_operation_location = read_response.headers["Operation-Location"]
+        operation_id = read_operation_location.split("/")[-1]
+        # Call the "GET" API and wait for the retrieval of the results
+        while True:
+            read_result = computervision_client.get_read_result(operation_id)
+            if read_result.status.lower () not in ['notstarted', 'running']:
+                break
+            time.sleep(10)
+        # Print results, line by line
+        if read_result.status == OperationStatusCodes.succeeded:
+            for text_result in read_result.analyze_result.read_results:
+                for line in text_result.lines:
+                    if line.text in ["200", "750", "100", "1500"]:
+                        denomination = line.text
+                    if serial is None:
+                        serial = UtilityFunctions.extract_continuous_characters(line.text)
+        return serial, denomination

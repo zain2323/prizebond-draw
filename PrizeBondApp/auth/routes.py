@@ -39,6 +39,9 @@ def sign_in():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember_me.data)
+            if user.role.role == "administrator" and not user.confirmed:
+                user.confirmed = True
+                db.session.commit()
             if not user.confirmed:
                 flash("Confirmation email has been sent. Please check your inbox for further details.", "warning")
                 send_confirmation_email(user)

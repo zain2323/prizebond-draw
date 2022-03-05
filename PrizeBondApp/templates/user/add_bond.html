@@ -31,9 +31,18 @@
                         {{form.serial(class="form-control mb-2", placeholder="Enter serial")}}       
                     {% endif %}
                 </div>
-                <div class="form-group badge bg-light text-wrap ms-4">
-                    <p class="fw-light text-dark">Enter single serial or multiple serials separated by comma.</p>
+                <div class="form-group badge bg-light text-wrap d-flex justify-content-center">
+                    <p class="fw-light text-dark">Enter single serial or multiple serials separated by comma. </p>
                     <p class="fw-light text-dark">Example: 123456,123457...</p>
+                </div>
+                <div class="form-group badge bg-light text-wrap d-flex justify-content-center">
+                    <p class="fw-light text-dark">Don't know what is serial?</p>
+                    <p class="fw-light text-dark">Then click on the icon below and leave the rest to us.</p>
+                </div>
+                <div class="form-group badge bg-light text-wrap d-flex justify-content-center">
+                    <a href="{{url_for('users.get_serial_from_file')}}" class="btn btn-outline-secondary bt">
+                        <i class="bi bi-camera-fill"></i>
+                    </a>    
                 </div>
             </fieldset>
             <div class="form-group mb-0 text-center">
