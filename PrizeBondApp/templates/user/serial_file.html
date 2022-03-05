@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content%}
+    <div class="content-section">
+        <form class="form-group" method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            {{ form.file }}
+            <legend class="text-center mt-5">Upload Bond File</legend>
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{form.img.label(class="form-control-label mb-2")}}
+                    {% if form.img.errors %}
+                        {{form.img(class="form-control mb-2 is-invalid")}} 
+                        <div class="invalid-feedback">
+                            {% for error in form.img.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{form.img(class="form-control mb-2")}}       
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group mb-0 text-center">
+                {{ form.submit(class="btn btn-outline-dark mt-4") }}
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}
