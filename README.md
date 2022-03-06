@@ -74,7 +74,7 @@ pip3 install -r requirements.txt
 ## Obtaining Azure Subscription_Key and Endpoint
 1. Create [Microsoft Azure](https://azure.microsoft.com/en-us/) account if you don't have one.
 2. To obtain `subscription_key` and `endpoint` refer to this [official guide](https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/quickstarts-sdk/client-library?tabs=visual-studio&pivots=programming-language-python). 
-## wrench: Setting Up the Application Configurations
+## :wrench: Setting Up the Application Configurations
 1. navigate to the project directory.
 ```
 cd prizebond-draw
@@ -126,4 +126,4 @@ flask run
  ## :rocket: CI/CD
 
 # :memo: Copyright
-This project is distributed under the [![GitHub](https://img.shields.io/github/license/zain2323/prizebond-draw)](https://github.com/zain2323/prizebond-draw/blob/main/LICENSE).
+This project is distributed under the ![GitHub](https://img.shields.io/github/license/zain2323/prizebond-draw)
