@@ -12,7 +12,7 @@ If you would like to read more about how prize bond works then check out this li
 
 >NOTE: I have made this website in accordance with how the prize bond works in Pakistan only and I am not sure of the process followed in other countries.
 
-# Tech Stack
+# :technologist: Tech Stack
 Here's the breif overview of the tech stack I have used:
 
 * This project uses [Flask Microframework](https://flask.palletsprojects.com/en/2.0.x/). Flask is a open source python web framework that is built with only minimalistic features and easy to extend philosophy.
