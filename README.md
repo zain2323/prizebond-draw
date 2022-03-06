@@ -1,5 +1,5 @@
 # Prizebond Draw
-# Project Description
+# :scroll: Project Description
 Prize Bond Draw is a web application for managing prize bonds which are a unique method of investment that are essentially lotteries backed by the government.
 
 1. This is a full stack web application that supports all the CRUD operations.
@@ -25,8 +25,8 @@ Here's the breif overview of the tech stack I have used:
 
 * For the extraction of serial and denomination from the bond picture, the project uses Microsoft Azure [Optical Character Recognition](https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/overview-ocr) service.
 
-# Installation Instructions For Ubuntu 20.04 LTS
-## Database Setup
+# :penguin: Installation Instructions For Ubuntu 20.04 LTS
+## :card_file_box: Database Setup
 1. Install Postgresql on Ubuntu.
  ``` 
  sudo apt update
@@ -49,7 +49,7 @@ Here's the breif overview of the tech stack I have used:
  ```
  /q
  ```
-## Getting the Project Dependencies
+## :arrow_up: Getting the Project Dependencies
 
 Make sure you have python3 and pip3 installed.
 
@@ -74,7 +74,7 @@ pip3 install -r requirements.txt
 ## Obtaining Azure Subscription_Key and Endpoint
 1. Create [Microsoft Azure](https://azure.microsoft.com/en-us/) account if you don't have one.
 2. To obtain `subscription_key` and `endpoint` refer to this [official guide](https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/quickstarts-sdk/client-library?tabs=visual-studio&pivots=programming-language-python). 
-## Setting Up the Application Configurations
+## wrench: Setting Up the Application Configurations
 1. navigate to the project directory.
 ```
 cd prizebond-draw
@@ -123,5 +123,7 @@ flask run
 ```
  Now navigate to the [localhost](localhost:5000) to use the application.
 
-# Copyright
+ ## :rocket: CI/CD
+
+# :memo: Copyright
 This project is distributed under the [MIT License](https://github.com/zain2323/prizebond-draw/blob/main/LICENSE).
