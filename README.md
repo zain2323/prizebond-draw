@@ -123,7 +123,7 @@ flask run
 ```
  Now navigate to the [localhost](localhost:5000) to use the application.
 
-# Hosted with :heart: by [Azure](prizebond-draw.centralindia.cloudapp.azure.com)
+# Hosted with :heart: by [Azure](http://prizebond-draw.centralindia.cloudapp.azure.com/)
 
  # :rocket: CI/CD
 This project uses [Github Actions](https://github.com/features/actions) to deploy the application. 
