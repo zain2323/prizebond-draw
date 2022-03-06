@@ -126,4 +126,4 @@ flask run
  ## :rocket: CI/CD
 
 # :memo: Copyright
-This project is distributed under the [MIT License](https://github.com/zain2323/prizebond-draw/blob/main/LICENSE).
+This project is distributed under the [![GitHub](https://img.shields.io/github/license/zain2323/prizebond-draw)](https://github.com/zain2323/prizebond-draw/blob/main/LICENSE).
