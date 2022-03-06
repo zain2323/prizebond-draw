@@ -123,7 +123,9 @@ flask run
 ```
  Now navigate to the [localhost](localhost:5000) to use the application.
 
- ## :rocket: CI/CD
+# Hosted with :heart: by [Azure](prizebond-draw.centralindia.cloudapp.azure.com)
 
+ # :rocket: CI/CD
+This project uses [Github Actions](https://github.com/features/actions) to deploy the application. 
 # :memo: Copyright
-This project is distributed under the ![GitHub](https://img.shields.io/github/license/zain2323/prizebond-draw)
+![GitHub](https://img.shields.io/github/license/zain2323/prizebond-draw)
