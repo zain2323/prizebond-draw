@@ -49,7 +49,7 @@ Here's the breif overview of the tech stack I have used:
  ```
  /q
  ```
-## :arrow_up: Getting the Project Dependencies
+## :arrow_up: Installing the Project Dependencies
 
 Make sure you have python3 and pip3 installed.
 
@@ -71,7 +71,7 @@ sudo apt install python3-dev libpq-dev
 pip3 install -r requirements.txt
 ```
 
-## Obtaining Azure Subscription_Key and Endpoint
+## :heavy_check_mark: Obtaining Azure Subscription_Key and Endpoint
 1. Create [Microsoft Azure](https://azure.microsoft.com/en-us/) account if you don't have one.
 2. To obtain `subscription_key` and `endpoint` refer to this [official guide](https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/quickstarts-sdk/client-library?tabs=visual-studio&pivots=programming-language-python). 
 ## :wrench: Setting Up the Application Configurations
@@ -111,8 +111,8 @@ sudo nano /etc/secrets.json
 
 >If you are running this application locally then `"HOST": "localhost" `
 
-## Running the Application
-1. Initialize the flask environment variable and run the migration script.
+## :arrow_forward: Running the Application
+1. Initialize the flask environment variable and run the migration script to setup the database schema.
 ```
 export FLASK_APP=run.py
 flask db upgrade
@@ -126,6 +126,6 @@ flask run
 # Hosted with :heart: by [Azure](http://prizebond-draw.centralindia.cloudapp.azure.com/)
 
  # :rocket: CI/CD
-This project uses [Github Actions](https://github.com/features/actions) to deploy the application. 
-# :memo: Copyright
+This project uses [Github Actions](https://github.com/features/actions) for the deployment. 
+# :copyright: Copyright
 ![GitHub](https://img.shields.io/github/license/zain2323/prizebond-draw)
