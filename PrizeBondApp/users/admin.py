@@ -129,7 +129,7 @@ class WinningBondView(GenericView):
             file = form.name.data
             if file and self.allowed_file(file.filename):
                 filename = secure_filename(file.filename)
-                filename = UtilityFunctions.save_picture(filename)
+                filename = UtilityFunctions.save_picture(file)
                 serials = self.get_serials(filename)
                 try:
                     self.add_bond(price, prize, serials, date, location, number)
