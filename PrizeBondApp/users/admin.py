@@ -220,6 +220,7 @@ class WinningBondView(GenericView):
                         int(serial)
                         final_serial_list.append(serial)
                     except:
+                        print(serial)
                         print("Not a valid serial")
         return final_serial_list
 
