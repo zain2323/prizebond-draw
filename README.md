@@ -121,7 +121,7 @@ flask db upgrade
 ```
 flask run
 ```
- Now navigate to the [localhost](localhost:5000) to use the application.
+ Now navigate to the `localhost:5000` on your browser to use the application.
 
 # Hosted with :heart: by [Azure](http://prizebond-draw.centralindia.cloudapp.azure.com/)
 
