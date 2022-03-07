@@ -146,12 +146,12 @@ class ResultsForm(FlaskForm):
     date = ValidationSelectField("Draw Date", validators=[DataRequired()])
     submit = SubmitField("Check")
 
-
-    def validate_date(self, date):
-        draw_date = DrawDate.query.filter(func.DATE(DrawDate.date == date.data)).first()
-        bond_date = UtilityFunctions.load_date(self.denomination.data)
-        if draw_date is None or date.data not in bond_date:
-            raise ValidationError("Date is invalid!")
+    # Commented this code as it is causing issues in postgres database. Will try to fix this in future releases.
+    # def validate_date(self, date):
+    #     draw_date = DrawDate.query.filter(func.DATE(DrawDate.date == date.data)).first()
+    #     bond_date = UtilityFunctions.load_date(self.denomination.data)
+    #     if draw_date is None or date.data not in bond_date:
+    #         raise ValidationError("Date is invalid!")
             
     def validate_denomination(self, denomination):
         price = BondPrice.query.filter_by(price=denomination.data).first()
