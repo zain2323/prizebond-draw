@@ -4,7 +4,7 @@ Prize Bond Draw is a web application for managing prize bonds which are a unique
 
 1. This is a full stack web application that supports all the CRUD operations.
 2. Supports role based mechanism to authorize the users.
-    - `Admin` Can add denominations and their respective prizes, update the winning list and annouce the notifications to all the users.
+    - `Admin` Can add denominations and their respective prizes, update the winning list and announce the notifications to all the users.
     - `User` Can store their bond serials and check the results of either all of their serials or by entering any particular serial.
 3. One unique feature is that you can add your bond serial by just uploading their picture.
 
